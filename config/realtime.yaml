@@ -1,0 +1,74 @@
+# Real-time data sources configuration
+
+# API endpoints for polling
+apis:
+  - name: "shodan"
+    url: "https://api.shodan.io"
+    method: "GET"
+    headers:
+      User-Agent: "XPLOIT Security Scanner"
+    params:
+      key: "YOUR_API_KEY"  # Replace with your actual API key
+    interval: 300  # 5 minutes
+
+  - name: "virustotal"
+    url: "https://www.virustotal.com/api/v3"
+    method: "GET"
+    headers:
+      x-apikey: "YOUR_API_KEY"  # Replace with your actual API key
+    interval: 300  # 5 minutes
+
+  - name: "securitytrails"
+    url: "https://api.securitytrails.com/v1"
+    method: "GET"
+    headers:
+      APIKEY: "YOUR_API_KEY"  # Replace with your actual API key
+    interval: 300  # 5 minutes
+
+# WebSocket connections for real-time data
+websockets:
+  - name: "threatstream"
+    url: "wss://api.threatstream.com/ws"
+    headers:
+      User-Agent: "XPLOIT Security Scanner"
+    auth:
+      username: "YOUR_USERNAME"  # Replace with your actual username
+      api_key: "YOUR_API_KEY"    # Replace with your actual API key
+
+# Database connections for direct data access
+databases:
+  - name: "local_results"
+    type: "sqlite"
+    database: "data/output/results.db"
+    query: "SELECT * FROM vulnerabilities ORDER BY vuln_id DESC LIMIT 10"
+    interval: 60  # 1 minute
+
+  # Example MySQL configuration (commented out)
+  # - name: "mysql_server"
+  #   type: "mysql"
+  #   host: "localhost"
+  #   port: 3306
+  #   database: "security_data"
+  #   username: "user"
+  #   password: "password"
+  #   query: "SELECT * FROM security_events WHERE timestamp > NOW() - INTERVAL 1 HOUR"
+  #   interval: 60  # 1 minute
+
+  # Example PostgreSQL configuration (commented out)
+  # - name: "postgres_server"
+  #   type: "postgres"
+  #   host: "localhost"
+  #   port: 5432
+  #   database: "security_data"
+  #   username: "user"
+  #   password: "password"
+  #   query: "SELECT * FROM security_events WHERE timestamp > NOW() - INTERVAL '1 hour'"
+  #   interval: 60  # 1 minute
+
+# Log files to monitor
+logs:
+  - name: "access_log"
+    path: "/var/log/apache2/access.log"
+    patterns:
+      - "(?P<ip>\\d+\\.\\d+\\.\\d+\\.\\d+).*\\[(?P<timestamp>.*?)\\]\\s+\"(?P<method>\\w+)\\s+(?P<url>.*?)\\s+HTTP.*?\"\\s+(?P<status>\\d+)"
+      - "SQL injection.*?from\\s+(?P<ip>\\d+\\.\\d+\\.\\d+\\.\\d+)"
