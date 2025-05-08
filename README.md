@@ -68,7 +68,7 @@ XPLOIT is a comprehensive web application security testing framework designed to
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/xploit.git
+git clone https://github.com/Odeneho-Calculus/xploit.git
 cd xploit
 
 # Create a virtual environment (optional but recommended)
@@ -416,7 +416,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact
 
-Project Link: [https://github.com/yourusername/xploit](https://github.com/yourusername/xploit)
+Project Link: [https://github.com/Odeneho-Calculus/xploit](https://github.com/Odeneho-Calculus/xploit)
 
 ---
 
